@@ -4,6 +4,7 @@ import { SocialusersController } from './socialusers.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Socialuser } from './entities/socialuser.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Socialuser, Profile])],

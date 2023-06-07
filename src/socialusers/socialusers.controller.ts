@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { SocialusersService } from './socialusers.service';
 import { CreateSocialuserDto } from './dto/create-socialuser.dto';
 import { UpdateSocialuserDto } from './dto/update-socialuser.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @Controller('socialusers')
@@ -19,6 +20,7 @@ export class SocialusersController {
     return this.socialusersService.findAll();
   }
 
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.socialusersService.findOne(+id);

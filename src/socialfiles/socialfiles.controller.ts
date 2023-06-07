@@ -1,13 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFiles, ParseFilePipe, FileTypeValidator, ParseFilePipeBuilder, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFiles, ParseFilePipe, FileTypeValidator, ParseFilePipeBuilder, UploadedFile, UseGuards } from '@nestjs/common';
 import { SocialfilesService } from './socialfiles.service';
 import { CreateSocialfileDto } from './dto/create-socialfile.dto';
 import { UpdateSocialfileDto } from './dto/update-socialfile.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('file')
 export class SocialfilesController {
   constructor(private readonly socialfilesService: SocialfilesService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post('upload')
   @UseInterceptors(FilesInterceptor('files'), )
   create(
