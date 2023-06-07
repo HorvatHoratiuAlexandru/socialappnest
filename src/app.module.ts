@@ -7,9 +7,10 @@ import { SocialpostsModule } from './socialposts/socialposts.module';
 import { SocialfilesModule } from './socialfiles/socialfiles.module';
 import { TagsModule } from './tags/tags.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [SocialdbModule, SocialusersModule, SocialpostsModule, SocialfilesModule, TagsModule, ProfilesModule],
+  imports: [SocialdbModule, SocialusersModule, SocialpostsModule, SocialfilesModule, TagsModule, ProfilesModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

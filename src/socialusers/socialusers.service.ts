@@ -37,6 +37,10 @@ export class SocialusersService {
     return this.userRepo.findOneOrFail({where: {id: id}});
   }
 
+  findOneByUsername(username: string) {
+    return this.userRepo.findOneOrFail({where: {username: username}});
+  }
+
   update(id: number, updateSocialuserDto: UpdateSocialuserDto) {
     return this.userRepo.update(id, updateSocialuserDto);
   }

@@ -1,34 +1,45 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFiles, ParseFilePipe, FileTypeValidator, ParseFilePipeBuilder, UploadedFile } from '@nestjs/common';
 import { SocialfilesService } from './socialfiles.service';
 import { CreateSocialfileDto } from './dto/create-socialfile.dto';
 import { UpdateSocialfileDto } from './dto/update-socialfile.dto';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
-@Controller('socialfiles')
+@Controller('file')
 export class SocialfilesController {
   constructor(private readonly socialfilesService: SocialfilesService) {}
 
-  @Post()
-  create(@Body() createSocialfileDto: CreateSocialfileDto) {
-    return this.socialfilesService.create(createSocialfileDto);
+  @Post('upload')
+  @UseInterceptors(FilesInterceptor('files'), )
+  create(
+    @UploadedFiles(
+      new ParseFilePipeBuilder()
+      .addFileTypeValidator({fileType: new RegExp('([0-9a-zA-Z\/_-]+.(png|PNG|gif|GIF|jp[e]?g|JP[E]?G))')})
+      
+      .build(),
+  ) 
+  files: Array<Express.Multer.File>
+  ) {
+
+    return this.socialfilesService.bulkCreate(files);
   }
 
-  @Get()
-  findAll() {
-    return this.socialfilesService.findAll();
-  }
+  
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.socialfilesService.findOne(+id);
+  @Post('test')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
   }
+  
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSocialfileDto: UpdateSocialfileDto) {
-    return this.socialfilesService.update(+id, updateSocialfileDto);
-  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.socialfilesService.remove(+id);
+  }
+
+  @Get('test')
+  test() {
+    return 'testfile';
   }
 }

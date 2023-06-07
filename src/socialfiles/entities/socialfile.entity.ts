@@ -1,6 +1,7 @@
 import { Socialpost } from "src/socialposts/entities/socialpost.entity";
-import { Column, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class Socialfile {
 
     @PrimaryGeneratedColumn()

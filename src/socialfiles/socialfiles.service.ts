@@ -4,7 +4,7 @@ import { UpdateSocialfileDto } from './dto/update-socialfile.dto';
 
 @Injectable()
 export class SocialfilesService {
-  create(createSocialfileDto: CreateSocialfileDto) {
+  bulkCreate(files: Array<Express.Multer.File>) {
     return 'This action adds a new socialfile';
   }
 

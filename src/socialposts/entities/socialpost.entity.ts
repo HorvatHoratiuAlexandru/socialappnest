@@ -8,4 +8,5 @@ export class Socialpost {
     description: string;
     @ManyToOne(() => Profile)
     profile: Profile;
+    
 }
